@@ -1,0 +1,28 @@
+body {
+
+}
+header {
+  display: grid;
+  background-color: #18172a;
+  margin: 2rem auto;
+  grid-auto-columns: 1fr 0.07fr;
+  grid-auto-flow: column;
+}
+.pageName {
+  margin: auto;
+}
+header h1 {
+  color: white;
+}
+header .buttons{
+margin-left: auto;
+}
+
+.buttons button{
+  background-color: #f5b43d;
+  border-top: 0.3rem #f4a031 solid;
+  border-left: 0.3rem #f4a031 solid;
+  border-bottom:0.3rem solid #9a6621;
+  border-right: 0.3rem solid #9a6621;
+  width: 7rem;
+}
