@@ -1,9 +1,8 @@
 body {
-
+  background-color: #18172a;
 }
 header {
   display: grid;
-  background-color: #18172a;
   margin: 2rem auto 0;
   grid-auto-columns: 1fr 0.07fr;
   grid-auto-flow: column;
@@ -30,7 +29,7 @@ main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #18172a;
+
 }
 .productContainer {
   background-color: white;
@@ -55,6 +54,7 @@ main{
 }
 .productContainer h2{
   margin: 0;
+  text-align: center;
 }
 .price {
   font-size: 1.4rem;
@@ -62,4 +62,23 @@ main{
 }
 .productContainer .buttons{
   margin: 1rem auto;
+}
+.shoppingCart {
+  background-color: white;
+  border-radius: 1rem;
+  position: absolute;
+  right: 0;
+  width: 20%;
+  height: 60%;
+  outline:3px solid black;
+  outline-offset:-7px;
+  border: 3px solid black;
+  font-size: 1.3rem;
+}
+.shoppingCart p{
+  text-align: center;
+  margin: 0;
+}
+.shoppingCart .buttons{
+  margin: 0.3rem;
 }
