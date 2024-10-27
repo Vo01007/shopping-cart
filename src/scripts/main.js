@@ -7,8 +7,14 @@ class Products{
 
 class UI{
   toggleVisibility = () =>{
-    
-    shoppingCartElement.style.display = (shoppingCartElement.style.display === 'none') ? 'block' : 'none'
+    if (shoppingCartElement.style.display === 'none' || shoppingCartElement.style.display === ''){
+      shoppingCartElement.style.display = 'block'
+      cartButtonElement.textContent = 'Hide Cart'
+    }else {
+      shoppingCartElement.style.display = 'none'
+      cartButtonElement.textContent = 'Show Cart'
+    }
+    // shoppingCartElement.style.display = (shoppingCartElement.style.display === 'none') ? 'block' : 'none'
   }
 }
 
@@ -16,7 +22,6 @@ const ui = new UI()
 
 const handleListener = () =>{
   cartButtonElement.addEventListener("click",ui.toggleVisibility)
-  console.log("click",cartButtonElement)
 }
 
 handleListener()
