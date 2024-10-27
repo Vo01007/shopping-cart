@@ -13,11 +13,11 @@ header {
 header h1 {
   color: white;
 }
-header .buttons{
+header .buttonsContainer{
 margin-left: auto;
 }
 
-.buttons button{
+.buttonsContainer button{
   background-color: #f5b43d;
   border-top: 0.3rem #f4a031 solid;
   border-left: 0.3rem #f4a031 solid;
@@ -60,10 +60,11 @@ main{
   font-size: 1.4rem;
   margin: 0;
 }
-.productContainer .buttons{
+.productContainer .buttonsContainer{
   margin: 1rem auto;
 }
 .shoppingCart {
+  display: none;
   background-color: white;
   border-radius: 1rem;
   position: absolute;
@@ -79,6 +80,6 @@ main{
   text-align: center;
   margin: 0;
 }
-.shoppingCart .buttons{
+.shoppingCart .buttonsContainer{
   margin: 0.3rem;
 }
