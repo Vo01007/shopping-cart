@@ -1,5 +1,4 @@
-{
-  "items": [
+export const items =[
     {
       "id": 1,
       "title": "Vanilla Cupcakes (6 Pack)",
@@ -73,4 +72,3 @@
       "image": "./src/images/lemonCupcake.jpeg"
     }
   ]
-}

@@ -1,8 +1,10 @@
+// import {items} from "../data/products.js"
+
 const cartButtonElement = document.querySelector('.cartButton')
 const shoppingCartElement = document.querySelector('.shoppingCart')
 
 class Products{
-
+  
 }
 
 class UI{
@@ -14,7 +16,6 @@ class UI{
       shoppingCartElement.style.display = 'none'
       cartButtonElement.textContent = 'Show Cart'
     }
-    // shoppingCartElement.style.display = (shoppingCartElement.style.display === 'none') ? 'block' : 'none'
   }
 }
 
