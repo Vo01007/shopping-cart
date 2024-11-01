@@ -29,11 +29,11 @@ class Product{
         </div>
         <div>
           <h2>${this.title}</h2>
-          <p className="price">$${this.price}</p>
+          <p class="price">$${this.price}</p>
           <p>Category: ${this.category}</p>
         </div>
         <div class="buttonsContainer">
-          <button>Add to cart</button>
+          <button class="addButton">Add to cart</button>
         </div>
       </div>`
   }
@@ -52,16 +52,61 @@ class UI {
     }
   }
 }
+class Storage {
+  constructor() {
+    this.totalItems = 0
+    this.subtotal = 0
+    this.taxes = 0
+    this.total = 0
+    this.updateTotalItems()
+  }
+  addToCart = (item) => {
+    localStorage.setItem(item.id, JSON.stringify(item))
+    this.updateTotalItems()
+    this.updateCartHtml()
+  }
+  updateTotalItems = () => {
+    this.totalItems = localStorage.length
+  }
+  updateCartHtml = () => {
+    shoppingCartElement.innerHTML = this.getHtml()
+  }
+  getHtml = () => {
+    return `
+    <div class="buttonsContainer">
+      <button>Clear Cart</button>
+    </div>
+    <div>
+      <h2>${this.title}</h2>
+      <p>Total number of items: ${this.totalItems}</p>
+      <p>Subtotal: $0</p>
+      <p>Taxes: $0</p>
+      <p>Total: $0</p>
+    </div>`
+  }
+}
 
 const ui = new UI()
+const storage = new Storage()
 
 const handleListener = () =>{
   cartButtonElement.addEventListener("click",ui.toggleVisibility)
+  const addToCartButtons = document.querySelector('.addButton')
+  addToCartButtons.forEach(addToCartButton => {
+    button.addEventListener("click", (event) => {
+      const item = {
+        id: event.target.dataset.id,
+        title: event.target.dataset.title,
+        price: event.target.dataset.price,
+      }
+      storage.addToCart(item)
+    })
+  })
 }
 const initialSetup = () =>{
-  const ui = new UI()
   const products = new Products()
   main.innerHTML=products.getItems()
+  storage.updateCartHtml()
   handleListener()
 }
 
