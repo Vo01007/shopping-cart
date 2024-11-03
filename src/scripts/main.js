@@ -33,7 +33,7 @@ class Product{
           <p>Category: ${this.category}</p>
         </div>
         <div class="buttonsContainer">
-          <button class="addButton">Add to cart</button>
+          <button class="addButton" data-product-id=${this.id}>Add to cart</button>
         </div>
       </div>`
   }
@@ -91,17 +91,13 @@ const storage = new Storage()
 
 const handleListener = () =>{
   cartButtonElement.addEventListener("click",ui.toggleVisibility)
-  const addToCartButtons = document.querySelector('.addButton')
-  addToCartButtons.forEach(addToCartButton => {
+  const addToCartButtons = document.getElementsByClassName('addButton')
+  for (let button of addToCartButtons) {
     button.addEventListener("click", (event) => {
-      const item = {
-        id: event.target.dataset.id,
-        title: event.target.dataset.title,
-        price: event.target.dataset.price,
-      }
-      storage.addToCart(item)
+      const itemToAdd = items.find(item => item.id === parseInt(event.target.getAttribute('data-product-id')))
+      storage.addToCart(itemToAdd)
     })
-  })
+  }
 }
 const initialSetup = () =>{
   const products = new Products()
