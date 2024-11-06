@@ -60,23 +60,13 @@ class Storage {
     this.total = 0
   }
   addToCart = (item) => {
-    localStorage.setItem('cartItem${item.id}' , JSON.stringify(item))
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
+
+    cartItems.push(item)
+
+    localStorage.setItem('cartItems',JSON.stringify(cartItems))
     this.updateTCartDisplay()
   }
-  getHtml = () => {
-    return `
-    <div class="buttonsContainer">
-      <button>Clear Cart</button>
-    </div>
-    <div>
-      <h2>${this.title}</h2>
-      <p id="itemCount">Total number of items: ${this.totalItems}</p>
-      <p id="subtotal">Subtotal: $0</p>
-      <p id="taxes">Taxes: $0</p>
-      <p id="totalPrice">Total: $0</p>
-    </div>`
-  }
-
 
   updateTCartDisplay = () => {
     const itemCountElement = document.getElementById('itemCount')
@@ -87,17 +77,22 @@ class Storage {
     let total = 0
     let itemCount = 0
 
-    const keys = Object.keys(localStorage).filter(key => key.startsWith("cartItem"))
-    const cartItemsHTML = keys.map((key) => {
-      const item = JSON.parse(localStorage.getItem(key))
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
+
+    const cartItemsHTML = cartItems.map((item) => {
       itemCount += 1
       total += item.price
+
       return `
       <div class="cartItem">
         <p><strong>${item.title}</strong>: $${item.price}</p>
       </div>`
     }).join('')
+
     shoppingCartElement.innerHTML = `
+    <div class="buttonsContainer">
+      <button id="clearCart">Clear Cart</button>
+    </div>
     ${cartItemsHTML}
     <div class="cartSummary">
       <p id="itemCount">Total number of items: ${itemCount}</p>
