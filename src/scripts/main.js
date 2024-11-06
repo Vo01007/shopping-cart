@@ -58,18 +58,10 @@ class Storage {
     this.subtotal = 0
     this.taxes = 0
     this.total = 0
-    this.updateTotalItems()
   }
   addToCart = (item) => {
-    localStorage.setItem(item.id, JSON.stringify(item))
-    this.updateTotalItems()
-    this.updateCartHtml()
-  }
-  updateTotalItems = () => {
-    this.totalItems = localStorage.length
-  }
-  updateCartHtml = () => {
-    shoppingCartElement.innerHTML = this.getHtml()
+    localStorage.setItem('cartItem${item.id}' , JSON.stringify(item))
+    this.updateTCartDisplay()
   }
   getHtml = () => {
     return `
@@ -78,10 +70,40 @@ class Storage {
     </div>
     <div>
       <h2>${this.title}</h2>
-      <p>Total number of items: ${this.totalItems}</p>
-      <p>Subtotal: $0</p>
-      <p>Taxes: $0</p>
-      <p>Total: $0</p>
+      <p id="itemCount">Total number of items: ${this.totalItems}</p>
+      <p id="subtotal">Subtotal: $0</p>
+      <p id="taxes">Taxes: $0</p>
+      <p id="totalPrice">Total: $0</p>
+    </div>`
+  }
+
+
+  updateTCartDisplay = () => {
+    const itemCountElement = document.getElementById('itemCount')
+    const subtotalElement = document.getElementById('subtotal')
+    const taxesElement = document.getElementById('taxes')
+    const totalPriceElement = document.getElementById('totalPrice')
+
+    let total = 0
+    let itemCount = 0
+
+    const keys = Object.keys(localStorage).filter(key => key.startsWith("cartItem"))
+    const cartItemsHTML = keys.map((key) => {
+      const item = JSON.parse(localStorage.getItem(key))
+      itemCount += 1
+      total += item.price
+      return `
+      <div class="cartItem">
+        <p><strong>${item.title}</strong>: $${item.price}</p>
+      </div>`
+    }).join('')
+    shoppingCartElement.innerHTML = `
+    ${cartItemsHTML}
+    <div class="cartSummary">
+      <p id="itemCount">Total number of items: ${itemCount}</p>
+      <p id="subtotal">Subtotal: $${total.toFixed(2)}</p>
+      <p id="taxes">Taxes: $${(total * 0.0725).toFixed(2)}</p>
+      <p id="totalPrice">Total: $${(total * 1.0725).toFixed(2)}</p>
     </div>`
   }
 }
@@ -102,7 +124,8 @@ const handleListener = () =>{
 const initialSetup = () =>{
   const products = new Products()
   main.innerHTML=products.getItems()
-  storage.updateCartHtml()
+  storage.updateTCartDisplay()
+
   handleListener()
 }
 
