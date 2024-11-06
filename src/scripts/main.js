@@ -1,5 +1,4 @@
 import {items} from "../data/products.js"
-console.log(items)
 
 const cartButtonElement = document.querySelector('.cartButton')
 const shoppingCartElement = document.querySelector('.shoppingCart')
@@ -53,12 +52,6 @@ class UI {
   }
 }
 class Storage {
-  constructor() {
-    this.totalItems = 0
-    this.subtotal = 0
-    this.taxes = 0
-    this.total = 0
-  }
   addToCart = (item) => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
 
@@ -69,11 +62,6 @@ class Storage {
   }
 
   updateTCartDisplay = () => {
-    const itemCountElement = document.getElementById('itemCount')
-    const subtotalElement = document.getElementById('subtotal')
-    const taxesElement = document.getElementById('taxes')
-    const totalPriceElement = document.getElementById('totalPrice')
-
     let total = 0
     let itemCount = 0
 
@@ -95,11 +83,18 @@ class Storage {
     </div>
     ${cartItemsHTML}
     <div class="cartSummary">
-      <p id="itemCount">Total number of items: ${itemCount}</p>
-      <p id="subtotal">Subtotal: $${total.toFixed(2)}</p>
-      <p id="taxes">Taxes: $${(total * 0.0725).toFixed(2)}</p>
-      <p id="totalPrice">Total: $${(total * 1.0725).toFixed(2)}</p>
+      <p>Total number of items: ${itemCount}</p>
+      <p>Subtotal: $${total.toFixed(2)}</p>
+      <p>Taxes: $${(total * 0.0725).toFixed(2)}</p>
+      <p>Total: $${(total * 1.0725).toFixed(2)}</p>
     </div>`
+
+    const clearCartElement = document.getElementById('clearCart')
+    clearCartElement.addEventListener('click',this.clearCart)
+  }
+  clearCart = () => {
+    localStorage.removeItem('cartItems')
+    this.updateTCartDisplay()
   }
 }
 
